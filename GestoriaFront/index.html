@@ -1,0 +1,246 @@
+<!DOCTYPE html>
+<html lang="es">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>Gestión de Autos</title>
+
+    <link rel="stylesheet" href="../style.css">
+    <link rel="stylesheet" href="../bootstrap/Biblioteca Bootstrap/css/bootstrap.min.css">
+</head>
+
+<body>
+    <section class="agregarauto">
+        <h3 class="mb-4 text-primary">
+            Gestión de Autos
+        </h3>
+
+        <div class="row mb-4">
+            <div class="col-lg-3 mb-3">
+                <input type="text"
+                    id="marca"
+                    class="form-control"
+                    placeholder="Marca">
+            </div>
+
+            <div class="col-lg-3 mb-3">
+                <input type="text"
+                    id="modelo"
+                    class="form-control"
+                    placeholder="Modelo">
+            </div>
+
+            <div class="col-lg-3 mb-3">
+                <input type="number"
+                    id="anio"
+                    class="form-control"
+                    placeholder="Año"
+                    min="0">
+            </div>
+
+            <div class="col-lg-3 mb-3">
+                <input type="text"
+                    id="patente"
+                    class="form-control"
+                    placeholder="Patente">
+            </div>
+
+            <div class="col-lg-3 mb-3">
+                <input type="number"
+                    id="km"
+                    class="form-control"
+                    placeholder="KM"
+                    min="0">
+            </div>
+
+            <div class="col-lg-3 mb-3">
+                <input type="date"
+                    id="fechaIngreso"
+                    class="form-control">
+            </div>
+
+            <div class="col-lg-3 mb-3">
+                <select id="disponibilidad" class="form-select">
+                                <option selected disabled>Disponibilidad</option>
+                                <option value="0">Disponible</option>
+                                <option value="1">No Disponible</option>
+                            </select>
+            </div>
+
+            <div class="col-lg-3 mb-3">
+                <button class="btn btn-primary w-100"
+                        id="btnGuardar"
+                        onclick="AgregarCargaAuto()">
+                    Agregar
+                </button>
+            </div>
+
+        </div>
+
+        <div class="modal fade"
+             id="editarAutoModal"
+             tabindex="-1"
+             aria-hidden="true">
+
+            <div class="modal-dialog">
+
+                <div class="modal-content">
+
+                    <div class="modal-header">
+
+                        <h1 class="modal-title fs-5">
+                            Editar Auto
+                        </h1>
+
+                        <button type="button"
+                                class="btn-close"
+                                data-bs-dismiss="modal"
+                                aria-label="Cerrar">
+                        </button>
+
+                    </div>
+
+
+                    <div class="modal-body">
+
+                        <input type="hidden" id="idEditar">
+
+                        <div class="row">
+
+                            <div class="col-md-6 mb-3">
+                                <label for="marcaEditar" class="form-label">
+                                    Marca
+                                </label>
+
+                                <input type="text"
+                                    id="marcaEditar"
+                                    class="form-control"
+                                    placeholder="Marca">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="modeloEditar" class="form-label">
+                                    Modelo
+                                </label>
+
+                                <input type="text"
+                                    id="modeloEditar"
+                                    class="form-control"
+                                    placeholder="Modelo">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="anioEditar" class="form-label">
+                                    Año
+                                </label>
+
+                                <input type="number"
+                                    id="anioEditar"
+                                    class="form-control"
+                                    placeholder="Año"
+                                    min="0">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="patenteEditar" class="form-label">
+                                    Patente
+                                </label>
+
+                                <input type="text"
+                                    id="patenteEditar"
+                                    class="form-control"
+                                    placeholder="Patente">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="kmEditar" class="form-label">
+                                    KM
+                                </label>
+
+                                <input type="number"
+                                    id="kmEditar"
+                                    class="form-control"
+                                    placeholder="KM"
+                                    min="0">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="fechaIngresoEditar" class="form-label">
+                                    Fecha Ingreso
+                                </label>
+
+                                <input type="date"
+                                    id="fechaIngresoEditar"
+                                    class="form-control">
+                            </div>
+
+                            <div class="col-md-6 mb-3">
+                                <label for="disponibilidadEditar" class="form-label">
+                                    Disponibilidad
+                                </label>
+
+                                <select id="disponibilidadEditar"class="form-select">
+                                    <option selected disabled>Disponibilidad</option>
+                                    <option value="0">Disponible</option>
+                                    <option value="1">No Disponible</option>
+                                </select>
+                            </div>
+
+                        </div>
+
+                        <div class="modal-footer">
+
+                            <button type="button"
+                                    class="btn btn-secondary"
+                                    data-bs-dismiss="modal">
+                                Cancelar
+                            </button>
+
+                            <button type="button"
+                                    class="btn btn-primary"
+                                    onclick="EditarCargaAuto()">
+                                Guardar
+                            </button>
+
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+
+        </div>
+
+        <div class="table-responsive">
+
+            <table class="table table-bordered table-hover align-middle">
+
+                <thead class="table-light">
+
+                    <tr>
+                        <th>Marca</th>
+                        <th class="ocultar">Modelo</th>
+                        <th class="ocultar">Año</th>
+                        <th>Patente</th>
+                        <th class="ocultar">KM</th>
+                        <th class="ocultar">Feche Ingreso</th>
+                        <th>Disponibilidad</th>
+                        <th>Editar</th>
+                        <th>Eliminar</th>
+                    </tr>
+
+                </thead>
+
+                <tbody id="tablaCargaAuto">
+                </tbody>
+            </table>
+        </div>
+    </section>
+
+    <script src="/bootstrap/Biblioteca Bootstrap/js/bootstrap.min.js"></script>
+    <script src="/js/jquery-4.0.0.min.js"></script>
+    <script src="/js/CargaAuto.1.0.0.js"></script>
+</body>
+
+</html>
